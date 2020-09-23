@@ -1,0 +1,10 @@
+dcm_ip_address=127.0.0.1
+zookeeper_ip_address=120.12.0.4
+kafka_port=9092
+listener_ip_addresses=PLAINTEXT://0.0.0.0:9092
+adv_listener_ip_addresses=PLAINTEXT://dcm:9092
+broker_id=1
+listener_security_protocol_map=PLAINTEXT:PLAINTEXT
+inter_broker_listener_name=PLAINTEXT
+rack_name=dcm
+network_commands=echo '127.0.0.1 dcm' | tee -a /etc/hosts > /dev/null; echo '110.11.0.3 france' | tee -a /etc/hosts > /dev/null

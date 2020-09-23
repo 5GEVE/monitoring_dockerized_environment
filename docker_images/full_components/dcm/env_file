@@ -1,0 +1,8 @@
+listener_ip_addresses=PUB://0.0.0.0:9092,SUB://0.0.0.0:9093
+adv_listener_ip_addresses=PUB://100.10.0.5:9092,SUB://50.5.0.5:9093
+broker_id=0
+zookeeper_ip_address=127.0.0.1
+listener_security_protocol_map=PUB:PLAINTEXT,SUB:PLAINTEXT
+inter_broker_listener_name=PUB
+rack_name=dcm
+network_commands=false

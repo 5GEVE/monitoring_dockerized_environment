@@ -1,0 +1,8 @@
+listener_ip_addresses=PLAINTEXT://0.0.0.0:9095
+adv_listener_ip_addresses=PLAINTEXT://france:9095
+broker_id=4
+zookeeper_ip_address=120.12.0.4
+listener_security_protocol_map=PLAINTEXT:PLAINTEXT
+inter_broker_listener_name=PLAINTEXT
+rack_name=france
+network_commands=echo '127.0.0.1 france' | tee -a /etc/hosts > /dev/null; echo '110.11.0.5 dcm' | tee -a /etc/hosts > /dev/null
