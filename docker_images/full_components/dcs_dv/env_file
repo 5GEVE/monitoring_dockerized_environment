@@ -1,0 +1,5 @@
+kibana_ip_address=50.5.0.4
+elasticsearch_ip_address=127.0.0.1
+elasticsearch_hosts=\"http://127.0.0.1:9200\"
+dcm_ip_address=50.5.0.5
+network_commands=echo '110.11.0.3 france' | tee -a /etc/hosts > /dev/null; echo '110.11.0.5 dcm' | tee -a /etc/hosts > /dev/null
