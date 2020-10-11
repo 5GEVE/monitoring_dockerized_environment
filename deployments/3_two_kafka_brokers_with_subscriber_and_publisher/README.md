@@ -8,8 +8,8 @@ This README file contains all the steps to be followed to deploy this scenario, 
 
 The following Docker images have been used for this deployment. Please verify that these images have been built beforehand.
 
-* **DCM simple:** available in this repository: [dcm_simple](../../docker_images/separated_components/dcm_simple).
-* **Kafka:** available in this repository: [kafka](../../docker_images/separated_components/kafka).
+* **DCM simple:** available in this repository: [dcm_simple](../../docker_images/separated_components/dcm_simple/v1).
+* **Kafka:** available in this repository: [kafka](../../docker_images/separated_components/kafka/v1).
 * **ZooKeeper:** available in this repository: [zookeeper](../../docker_images/separated_components/zookeeper).
 * **Complex Python subscriber:** available in this repository: [complex_subscriber](../../docker_images/separated_components/complex_subscriber).
 * **Complex Python publisher:** available in this repository: [complex_publisher](../../docker_images/separated_components/complex_publisher).

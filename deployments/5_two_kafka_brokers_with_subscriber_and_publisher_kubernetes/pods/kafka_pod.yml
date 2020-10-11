@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kafka
+spec:
+  containers:
+    - name: kafka-container
+      image: kafka:v2
+      imagePullPolicy: Never
+      command: [ "/bin/bash", "-c", "--" ]
+      args: [ "while true; do sleep 3600; done;" ]
+      ports:
+        - containerPort: 9095
+          hostPort: 9095
+  nodeSelector:
+      kubernetes.io/hostname: 5geve-k3s-node1-monit
