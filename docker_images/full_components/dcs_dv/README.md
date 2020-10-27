@@ -20,13 +20,6 @@ Where:
 
 And, in the env_file, the following parameters can be modified:
 
-kibana_ip_address=127.0.0.1
-elasticsearch_ip_address=127.0.0.1
-elasticsearch_hosts=\"http://127.0.0.1:9200\"
-dcm_ip_address=127.0.0.1
-network_commands=false
-
-
 * **kibana_ip_address:** IP address of Kibana (localhost by default, but must be changed with the final IP address used in the Kibana container).
 * **elasticsearch_ip_address:** IP address of Elasticsearch (localhost by default, but must be changed with the final IP address used in the Elasticsearch container).
 * **elasticsearch_hosts:** hosts that belongs to the Elasticsearch cluster, written as a list (e.g. \"host1\", \"host2\"...).

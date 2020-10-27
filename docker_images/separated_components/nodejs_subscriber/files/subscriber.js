@@ -7,7 +7,7 @@ const kafka = new Kafka({
 })
 
 const consumer = kafka.consumer({ 
-  groupId: 'test',
+  groupId: process.argv[4] + '-' + process.argv[3],
   rackId: process.argv[3] 
 })
 
@@ -20,6 +20,7 @@ const run = async () => {
   await consumer.subscribe({ topic, fromBeginning: false })
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
+      try {
         var msg_json = JSON.parse(`${message.value}`)
         console.log("Message received:")
         console.log(`- ${message.value}`)
@@ -40,6 +41,9 @@ const run = async () => {
         else {
             console.log("Latency value not appended to file")
         }
+      } catch(_) {
+        console.log("Incorrect JSON format")
+      }
     },
   })
 }

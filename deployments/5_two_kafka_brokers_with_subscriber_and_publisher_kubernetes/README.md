@@ -143,7 +143,7 @@ $ kubectl exec kafka -- ls /tmp/kafka-logs		# output: uc.4.france_nice.kpi.servi
 
 ### 5. Configure the subscriber and run it with the new topic created by the DCM handler
 
-Execute the following commands to configure the pod and start consuming from the topic already created. Make sure to run the command in a separate terminal because the Python script will block it (close it with Ctrl+C when finishing). Moreover, make sure that you are selecting the correct combination of <broker_ip_and_port> and <rackId> arguments (you can read from both brokers, but you just need to include the correct values there).
+Execute the following commands to configure the pod and start consuming from the topic already created. Make sure to run the command in a separate terminal because the NodeJS script will block it (close it with Ctrl+C when finishing). Moreover, make sure that you are selecting the correct combination of <broker_ip_and_port> and <rackId> arguments (you can read from both brokers, but you just need to include the correct values there).
 
 ```sh
 $ kubectl exec subscriber -- /bin/sh -c "echo '<kafka_pod_ip> france' | tee -a /etc/hosts > /dev/null"

@@ -11,7 +11,7 @@ spec:
       args: [ "while true; do sleep 3600; done;" ]
       ports:
         - containerPort: 9095
-          hostPort: 9095
+#          hostPort: 9095
 #      resources:
 #          requests:
 #              memory: "2Gi"
