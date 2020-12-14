@@ -24,3 +24,16 @@ spec:
               hostPort: 8090
               #  nodeSelector:
               #      kubernetes.io/hostname: tardis.tlc.pg
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dcm
+  labels:
+    run: dcm
+spec:
+  ports:
+    - port: 8090
+      protocol: TCP
+  selector:
+    run: dcm
