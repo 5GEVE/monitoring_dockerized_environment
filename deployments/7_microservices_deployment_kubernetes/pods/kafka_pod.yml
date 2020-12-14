@@ -31,3 +31,16 @@ spec:
 #               cpu: "1"
 # nodeSelector:
 #   kubernetes.io/hostname: tardis.tlc.pg
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka
+  labels:
+    run: kafka
+spec:
+  ports:
+    - port: 9092
+      protocol: TCP
+  selector:
+    run: kafka
