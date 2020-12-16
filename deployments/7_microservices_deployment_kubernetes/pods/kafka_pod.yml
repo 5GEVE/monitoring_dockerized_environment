@@ -15,10 +15,8 @@ spec:
     spec:
       containers:
         - name: kafka-container
-          image: kafka:v2
+          image: kafka:v3
           imagePullPolicy: Never
-          command: ["/bin/bash", "-c", "--"]
-          args: ["while true; do sleep 3600; done;"]
           ports:
             - containerPort: 9092
 #             hostPort: 9092
