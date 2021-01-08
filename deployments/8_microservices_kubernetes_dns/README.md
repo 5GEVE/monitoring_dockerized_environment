@@ -77,16 +77,9 @@ dcs                         1/1     Running   0          5s      10.42.0.91   5g
 dcm                         1/1     Running   0          6s      10.42.0.93   5geve-k3s-master-monit   <none>           <none>
 ```
 
-### 2. Configure Kafka
+### 2. Check ZooKeeper and Kafka
 
-Run the following scripts to configure the Kafka container (change <xxx_pod_ip> tags for the corresponding pods' IPs):
-
-```sh
-$ kubectl exec kafka -- /bin/bash update_hosts.sh <kafka_pod_ip> dcm
-$ kubectl exec kafka -- /bin/bash entrypoint.sh PLAINTEXT://0.0.0.0:9092 PLAINTEXT://dcm:9092 1 <zookeeper_pod_ip> dcm > /dev/null &
-```
-
-And also, you chan check in ZooKeeper pod that Kafka has correctly joined to ZooKeeper:
+You can check in ZooKeeper pod that Kafka has correctly joined ZooKeeper:
 
 ```sh
 $ kubectl exec -it zookeeper -- /opt/kafka/bin/zookeeper-shell.sh <zookeeper_pod_ip>:2181 ls /brokers/ids
