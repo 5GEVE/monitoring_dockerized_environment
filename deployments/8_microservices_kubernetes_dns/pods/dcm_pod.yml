@@ -1,39 +1,16 @@
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: dcm
-spec:
-  selector:
-    matchLabels:
-      run: dcm
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        run: dcm
-    spec:
-      containers:
-        - name: dcm-container
-          image: dcm
-          imagePullPolicy: Never
-          command: ["/bin/bash", "-c", "--"]
-          args: ["while true; do sleep 3600; done;"]
-          ports:
-            - containerPort: 8090
-              hostPort: 8090
-              #  nodeSelector:
-              #      kubernetes.io/hostname: tardis.tlc.pg
----
 apiVersion: v1
-kind: Service
+kind: Pod
 metadata:
   name: dcm
-  labels:
-    run: dcm
 spec:
-  ports:
-    - port: 8090
-      protocol: TCP
-  selector:
-    run: dcm
+  containers:
+    - name: dcm-container
+      image: dcm
+      imagePullPolicy: Never
+      command: [ "/bin/bash", "-c", "--" ]
+      args: [ "while true; do sleep 3600; done;" ]
+      ports:
+        - containerPort: 8090
+          hostPort: 8090
+#  nodeSelector:
+#      kubernetes.io/hostname: 5geve-k3s-master-monit
