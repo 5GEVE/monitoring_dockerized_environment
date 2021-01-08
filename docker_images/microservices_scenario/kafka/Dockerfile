@@ -23,4 +23,3 @@ COPY files/update_hosts.sh /
 RUN chmod +x update_hosts.sh
 COPY files/entrypoint.sh /
 RUN chmod +x entrypoint.sh
-CMD ["/entrypoint.sh", "PLAINTEXT://0.0.0.0:9092", "PLAINTEXT://dcm:9092", "1", "zookeeper", "dcm"]

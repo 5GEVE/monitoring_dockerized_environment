@@ -16,4 +16,4 @@ echo "broker.rack=$rack_name" | tee -a /opt/kafka/config/server.properties > /de
 # Start Kafka
 echo "Start Kafka"
 sleep 5
-/opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties
+/bin/bash /opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties &
