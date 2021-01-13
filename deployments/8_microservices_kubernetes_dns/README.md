@@ -20,6 +20,8 @@ Before running the pods, check the following:
 * The Kubernetes node uses Docker as container daemon.
 * You have built all the Docker images referenced in pods' specification.
 
+> Note: better to deploy everything in a new namespace
+
 Then, execute the following:
 
 ```sh
@@ -30,7 +32,7 @@ $ kubectl apply -f ./pods/kafka_pod.yml
 After this, take note of pods' IP addresses by running this:
 
 ```sh
-$ kubectl -n matteo-dcm get services
+$ kubectl get services
 ```
 
 You should obtain something like this:
