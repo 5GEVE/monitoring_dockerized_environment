@@ -51,6 +51,15 @@ You can check in ZooKeeper pod that Kafka has correctly joined ZooKeeper:
 $ kubectl exec -it <zookeeper_pod_name> -- /opt/kafka/bin/zookeeper-shell.sh <zookeeper_pod_ip>:2181 ls /brokers/ids
 ```
 
+Check that Kafka broker is reachable from a client:
+
+```sh
+$ kubectl run alpine --image=alpine:latest -i --tty && kubectl delete pods alpine
+$ apk update
+$ apk add kafkacat
+$ kafkacat -b kafka:9092 -L
+```
+
 ### 3. Configure the ELK Stack
 
 First of all, start by running Elasticsearch:
