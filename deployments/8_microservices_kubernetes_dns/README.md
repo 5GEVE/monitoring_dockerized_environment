@@ -4,24 +4,12 @@ This README file contains all the steps to be followed to deploy this scenario, 
 
 ![Architecture](img/monitoring_architecture_7.png)
 
-## Docker images involved
+## Build Docker images
 
 The following Docker images have been used for this deployment. Please verify that these images have been built beforehand.
 
-* **Complex Python publisher:** available in this repository: [complex_publisher](../../docker_images/microservices_scenario/complex_publisher).
-* **Complex Python subscriber:** available in this repository: [complex_subscriber](../../docker_images/microservices_scenario/complex_subscriber).
-* **Create Kafka Topic:** available in this repository: [create_kafka_topic](../../docker_images/microservices_scenario/create_kafka_topic).
-* **DCM:** available in this repository: [dcm](../../docker_images/microservices_scenario/dcm).
-* **DCS:** available in this repository: [dcs](../../docker_images/microservices_scenario/dcs).
-* **Delete Kafka Topic:** available in this repository: [delete_kafka_topic](../../docker_images/microservices_scenario/delete_kafka_topic).
-* **Elasticsearch:** available in this repository: [elasticsearch](../../docker_images/microservices_scenario/elasticsearch).
-* **Fetch Kafka Topic:** available in this repository: [fetch_kafka_topic](../../docker_images/microservices_scenario/fetch_kafka_topic).
-* **Kafka:** available in this repository: [kafka](../../docker_images/microservices_scenario/kafka).
-* **Kafka Consumer:** available in this repository: [kafka_consumer](../../docker_images/microservices_scenario/kafka_consumer).
-* **Kibana:** available in this repository: [kibana](../../docker_images/microservices_scenario/kibana).
-* **Logstash Pipeline Manager:** available in this repository: [logstash_pipeline_manager](../../docker_images/microservices_scenario/logstash_pipeline_manager).
-* **Sangrenel publisher:** available in this repository: [sangrenel_publisher](../../docker_images/microservices_scenario/sangrenel_publisher).
-* **ZooKeeper:** available in this repository: [zookeeper](../../docker_images/microservices_scenario/zookeeper).
+* **ZooKeeper:** available in this repository: [zookeeper](../../docker_images/microservices_scenario/zookeeper). Build with `docker build -t zookeeper .`
+* **Kafka:** available in this repository: [kafka:v3](../../docker_images/microservices_scenario/kafka/v3). Build with `docker build -t kafka:v3 .`
 
 ## Steps to be followed
 
@@ -35,46 +23,22 @@ Before running the pods, check the following:
 Then, execute the following:
 
 ```sh
-$ kubectl apply -f ./pods/create_kafka_topic_pod.yml
-$ kubectl apply -f ./pods/dcm_pod.yml
-$ kubectl apply -f ./pods/dcs_pod.yml
-$ kubectl apply -f ./pods/delete_kafka_topic_pod.yml
-$ kubectl apply -f ./pods/elasticsearch_pod.yml
-$ kubectl apply -f ./pods/fetch_kafka_topic_pod.yml
-$ kubectl apply -f ./pods/kafka_consumer_pod.yml
-$ kubectl apply -f ./pods/kafka_pod.yml
-$ kubectl apply -f ./pods/kibana_pod.yml
-$ kubectl apply -f ./pods/logstash_pipeline_manager_pod.yml
-$ kubectl apply -f ./pods/publisher_pod.yml
-$ kubectl apply -f ./pods/sangrenel_pod.yml
-$ kubectl apply -f ./pods/subscriber_pod.yml
 $ kubectl apply -f ./pods/zookeeper_pod.yml
+$ kubectl apply -f ./pods/kafka_pod.yml
 ```
 
 After this, take note of pods' IP addresses by running this:
 
 ```sh
-$ kubectl get pods -o wide
+$ kubectl -n matteo-dcm get services
 ```
 
 You should obtain something like this:
 
 ```
-NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                     NOMINATED NODE   READINESS GATES
-elasticsearch               1/1     Running   0          8s      10.42.0.73   5geve-k3s-master-monit   <none>           <none>
-kibana                      1/1     Running   0          8s      10.42.0.75   5geve-k3s-master-monit   <none>           <none>
-kafka                       1/1     Running   0          8s      10.42.0.74   5geve-k3s-master-monit   <none>           <none>
-publisher                   1/1     Running   0          8s      10.42.0.76   5geve-k3s-master-monit   <none>           <none>
-sangrenel                   1/1     Running   0          8s      10.42.0.77   5geve-k3s-master-monit   <none>           <none>
-subscriber                  1/1     Running   0          8s      10.42.0.78   5geve-k3s-master-monit   <none>           <none>
-zookeeper                   1/1     Running   0          8s      10.42.0.79   5geve-k3s-master-monit   <none>           <none>
-logstash-pipeline-manager   1/1     Running   0          8s      10.42.0.85   5geve-k3s-master-monit   <none>           <none>
-create-kafka-topic          1/1     Running   0          8s      10.42.0.86   5geve-k3s-master-monit   <none>           <none>
-delete-kafka-topic          1/1     Running   0          7s      10.42.0.87   5geve-k3s-master-monit   <none>           <none>
-fetch-kafka-topic           1/1     Running   0          7s      10.42.0.88   5geve-k3s-master-monit   <none>           <none>
-kafka-consumer              1/1     Running   0          6s      10.42.0.89   5geve-k3s-master-monit   <none>           <none>
-dcs                         1/1     Running   0          5s      10.42.0.91   5geve-k3s-master-monit   <none>           <none>
-dcm                         1/1     Running   0          6s      10.42.0.93   5geve-k3s-master-monit   <none>           <none>
+NAME        TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+kafka       ClusterIP   10.111.172.226   <none>        9092/TCP   18m
+zookeeper   ClusterIP   10.105.243.2     <none>        2181/TCP   18m
 ```
 
 ### 2. Check ZooKeeper and Kafka
@@ -82,7 +46,7 @@ dcm                         1/1     Running   0          6s      10.42.0.93   5g
 You can check in ZooKeeper pod that Kafka has correctly joined ZooKeeper:
 
 ```sh
-$ kubectl exec -it zookeeper -- /opt/kafka/bin/zookeeper-shell.sh <zookeeper_pod_ip>:2181 ls /brokers/ids
+$ kubectl exec -it <zookeeper_pod_name> -- /opt/kafka/bin/zookeeper-shell.sh <zookeeper_pod_ip>:2181 ls /brokers/ids
 ```
 
 ### 3. Configure the ELK Stack
