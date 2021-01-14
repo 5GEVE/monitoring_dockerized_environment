@@ -27,3 +27,4 @@ rm -r /tmp/5geve-wp4-dcs-kibana-dashboards-handler
 # Start DCS Dashboards service
 echo "Start DCS Dashboard"
 /usr/bin/java -jar /usr/bin/dcs/dcs_dashboard.jar > /var/log/dcs_dashboard.log &
+tail -f /var/log/dcs_dashboard.log

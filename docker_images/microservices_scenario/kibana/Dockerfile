@@ -51,3 +51,4 @@ RUN sed -i -e 's/dashboard-owner-enabled.*/dashboard-owner-enabled: false/' /tmp
 # Entrypoint script
 COPY files/entrypoint.sh /
 RUN chmod +x entrypoint.sh
+CMD /entrypoint.sh kibana "http://elasticsearch:9200"
