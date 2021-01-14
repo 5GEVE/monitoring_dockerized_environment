@@ -1,4 +1,4 @@
-# 7. Microservices deployment (Kubernetes version)
+# 8. Microservices deployment (Kubernetes version + DNS)
 
 This README file contains all the steps to be followed to deploy this scenario, based on Kubernetes, in which it is presented the Monitoring platform based on microservices, which is the previous step before achieving the integration of serverless functions.
 
@@ -10,6 +10,9 @@ The following Docker images have been used for this deployment. Please verify th
 
 * **ZooKeeper:** available in this repository: [zookeeper](../../docker_images/microservices_scenario/zookeeper). Build with `docker build -t zookeeper .`
 * **Kafka:** available in this repository: [kafka:v3](../../docker_images/microservices_scenario/kafka/v3). Build with `docker build -t kafka:v3 .`
+* **Elasticsearch:** available in this repository: [elasticsearch](../../docker_images/microservices_scenario/elasticsearch/v3). Build with `docker build -t elasticsearch:v3 .`
+* **Kibana:** available in this repository: [kibana](../../docker_images/microservices_scenario/kibana/v3). Build with `docker build -t kibana:v3 .`
+* **Logstash Pipeline Manager:** available in this repository: [logstash_pipeline_manager](../../docker_images/microservices_scenario/logstash_pipeline_manager/v3). Build with `docker build -t logstash-pipeline-manager:v3 .`
 
 ## Steps to be followed
 
@@ -27,20 +30,26 @@ Then, execute the following:
 ```sh
 $ kubectl apply -f ./pods/zookeeper_pod.yml
 $ kubectl apply -f ./pods/kafka_pod.yml
+$ kubectl apply -f ./pods/elasticsearch_pod.yml
+$ kubectl apply -f ./pods/kibana_pod.yml
+$ kubectl apply -f ./pods/logstash_pipeline_manager_pod.yml
 ```
 
 After this, take note of pods' IP addresses by running this:
 
 ```sh
+$ kubectl get deployments
 $ kubectl get services
 ```
 
-You should obtain something like this:
+You should obtain something like this for services:
 
 ```
-NAME        TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
-kafka       ClusterIP   10.111.172.226   <none>        9092/TCP   18m
-zookeeper   ClusterIP   10.105.243.2     <none>        2181/TCP   18m
+NAME            TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)             AGE
+elasticsearch   ClusterIP   10.107.71.24     <none>        9200/TCP            24m
+kafka           ClusterIP   10.111.172.226   <none>        9092/TCP            18h
+kibana          ClusterIP   10.96.151.123    <none>        5601/TCP,8080/TCP   13m
+zookeeper       ClusterIP   10.105.243.2     <none>        2181/TCP            18h
 ```
 
 ### 2. Check ZooKeeper and Kafka
@@ -60,28 +69,7 @@ $ apk add kafkacat
 $ kafkacat -b kafka:9092 -L
 ```
 
-### 3. Configure the ELK Stack
-
-First of all, start by running Elasticsearch:
-
-```sh
-$ kubectl exec elasticsearch -- /bin/bash entrypoint.sh &
-```
-
-Then, run Kibana:
-
-```sh
-$ kubectl exec kibana -- /bin/bash entrypoint.sh <kibana_pod_ip> \"http://<elasticsearch_pod_ip>:9200\" &
-```
-
-And finally, run Logstash:
-
-```sh
-$ kubectl exec logstash_pipeline_manager -- /bin/bash update_hosts.sh <kafka_pod_ip> dcm
-$ kubectl exec logstash_pipeline_manager -- /bin/bash entrypoint.sh \"http://<elasticsearch_pod_ip>:9200\" <kafka_pod_ip>:9092 <elasticsearch_pod_ip>:9200 &
-```
-
-### 4. Deploy microservices
+### 3. Deploy microservices
 
 Then, it is time to create the microservices related to the serverless functions.
 
