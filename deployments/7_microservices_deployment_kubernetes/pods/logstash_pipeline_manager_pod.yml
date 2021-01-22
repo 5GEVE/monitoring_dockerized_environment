@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
     - name: logstash-pipeline-manager-container
-      image: logstash_pipeline_manager
+      image: logstash_pipeline_manager:vNoRack
       imagePullPolicy: Never
       command: [ "/bin/bash", "-c", "--" ]
       args: [ "while true; do sleep 3600; done;" ]

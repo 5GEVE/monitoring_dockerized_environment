@@ -5,13 +5,13 @@ Docker image containing Kafka, configured to be used in the 5G EVE Monitoring ar
 ## Build the image
 
 ```sh
-$ docker build -t kafka:v2 .
+$ docker build -t kafka:vNoRack .
 ```
 
 ## Run the image
 
 ```sh
-$ docker run --name <container_name> -t -d kafka:v2
+$ docker run --name <container_name> -t -d kafka:vNoRack
 ```
 
 Where:
@@ -32,7 +32,7 @@ Where:
 * **hostname:** hostname assigned, to be used in the following command.
 
 ```sh
-$ docker exec -it <container_name> /bin/bash entrypoint.sh $listener_ip_addresses $adv_listener_ip_addresses $broker_id $zookeeper_ip_address $rack_name
+$ docker exec -it <container_name> /bin/bash entrypoint.sh $listener_ip_addresses $adv_listener_ip_addresses $broker_id $zookeeper_ip_address
 ```
 
 Where:
@@ -41,7 +41,6 @@ Where:
 * **adv_listener_ip_addresses:** IP addresses to be advertised by Kafka for the different Kafka clients connected to the broker. A listener must be included for each network in which there can be clients connected to Kafka.
 * **broker_id:** value of the brokerId (0 by default).
 * **zookeeper_ip_address:** IP address of ZooKeeper (localhost by default, but must be changed with the final IP address used in the ZooKeeper container).
-* **rack_name:** name of the Kafka broker to be used by consumers that handles the client.rack attribute.
 
 ## Some Kafka commands to have in mind
 

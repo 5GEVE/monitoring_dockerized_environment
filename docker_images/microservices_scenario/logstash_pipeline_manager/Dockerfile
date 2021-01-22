@@ -15,8 +15,8 @@ RUN sed -i '/^JAVA_HOME.*/d' /etc/environment && echo JAVA_HOME=/usr/lib/jvm/jav
 
 # Install ELK Stack
 RUN wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
-ADD https://artifacts.elastic.co/downloads/logstash/logstash-7.9.1.deb /tmp
-RUN dpkg -i /tmp/logstash-7.9.1.deb
+ADD https://artifacts.elastic.co/downloads/logstash/logstash-7.5.0.deb /tmp
+RUN dpkg -i /tmp/logstash-7.5.0.deb
 RUN rm /tmp/*.deb
 
 # Create /usr/bin/dcs directory

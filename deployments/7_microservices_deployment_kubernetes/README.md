@@ -83,7 +83,7 @@ Run the following scripts to configure the Kafka container (change <xxx_pod_ip> 
 
 ```sh
 $ kubectl exec kafka -- /bin/bash update_hosts.sh <kafka_pod_ip> dcm
-$ kubectl exec kafka -- /bin/bash entrypoint.sh PLAINTEXT://0.0.0.0:9092 PLAINTEXT://dcm:9092 1 <zookeeper_pod_ip> dcm > /dev/null &
+$ kubectl exec kafka -- /bin/bash entrypoint.sh PLAINTEXT://0.0.0.0:9092 PLAINTEXT://dcm:9092 1 <zookeeper_pod_ip> > /dev/null &
 ```
 
 And also, you chan check in ZooKeeper pod that Kafka has correctly joined to ZooKeeper:
