@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka
+spec:
+  selector:
+    matchLabels:
+      run: kafka
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: kafka
+    spec:
+      containers:
+        - name: kafka-container
+          image: kafka:v3
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 9092
+#             hostPort: 9092
+#           resources:
+#             requests:
+#               memory: "2Gi"
+#               cpu: "1"
+#             limits:
+#               memory: "2Gi"
+#               cpu: "1"
+# nodeSelector:
+#   kubernetes.io/hostname: tardis.tlc.pg
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka
+  labels:
+    run: kafka
+spec:
+  ports:
+    - port: 9092
+      protocol: TCP
+  selector:
+    run: kafka

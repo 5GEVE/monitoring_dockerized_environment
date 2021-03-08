@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+spec:
+  selector:
+    matchLabels:
+      run: kibana
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: kibana
+    spec:
+      containers:
+        - name: kibana-container
+          image: kibana:v3
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5601
+              hostPort: 5601
+              name: "p5601"
+            - containerPort: 8080
+              hostPort: 8080
+              name: "p8080"
+#  nodeSelector:
+#      kubernetes.io/hostname: 5geve-k3s-master-monit
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana
+  labels:
+    run: kibana
+spec:
+  ports:
+    - port: 5601
+      protocol: TCP
+      name: "p5601"
+    - port: 8080
+      protocol: TCP
+      name: "p8080"
+  selector:
+    run: kibana

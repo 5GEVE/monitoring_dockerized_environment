@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logstash
+spec:
+  selector:
+    matchLabels:
+      run: logstash
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: logstash
+    spec:
+      containers:
+        - name: logstash-container
+          image: logstash-pipeline-manager:v3
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5000
+            - containerPort: 9600
+            - containerPort: 8191
+              # hostPort: 8191
+#  nodeSelector:
+#      kubernetes.io/hostname: 5geve-k3s-master-monit
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: logstash
+  labels:
+    run: logstash
+spec:
+  ports:
+    - port: 8191
+      protocol: TCP
+  selector:
+    run: logstash

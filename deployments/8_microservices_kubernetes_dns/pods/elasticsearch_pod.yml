@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elasticsearch
+spec:
+  selector:
+    matchLabels:
+      run: elasticsearch
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: elasticsearch
+    spec:
+      containers:
+        - name: elasticsearch-container
+          image: elasticsearch:v3
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 9200
+            - containerPort: 9300
+#  nodeSelector:
+#      kubernetes.io/hostname: 5geve-k3s-master-monit
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch
+  labels:
+    run: elasticsearch
+spec:
+  ports:
+    - port: 9200
+      protocol: TCP
+  selector:
+    run: elasticsearch
