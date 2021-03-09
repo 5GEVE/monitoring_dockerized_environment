@@ -68,7 +68,7 @@ $ kubectl exec -it <zookeeper_pod_name> -- /opt/kafka/bin/zookeeper-shell.sh <zo
 Check that Kafka broker is reachable from a client:
 
 ```sh
-$ kubectl run alpine --image=alpine:latest -i --tty && kubectl delete pods alpine
+$ kubectl run alpine --image=alpine:latest -i --tty --rm=true
 $ apk update
 $ apk add kafkacat
 $ kafkacat -b kafka:9092 -L
