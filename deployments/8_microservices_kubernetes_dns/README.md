@@ -11,7 +11,7 @@ The following Docker images have been used for this deployment. Please verify th
 * **ZooKeeper:** available in this repository: [zookeeper](../../docker_images/microservices_scenario/zookeeper). Build with `docker build -t zookeeper .`
 * **Kafka:** available in this repository: [kafka:v3](../../docker_images/microservices_scenario/kafka/v3). Build with `docker build -t kafka:v3 .`
 * **Elasticsearch:** available in this repository: [elasticsearch](../../docker_images/microservices_scenario/elasticsearch/v3). Build with `docker build -t elasticsearch:v3 .`
-* **Kibana:** available in this repository: [kibana](../../docker_images/microservices_scenario/kibana/v3). Build with `docker build -t kibana:v3 .`
+* **Kibana:** available in this repository: [kibana](../../docker_images/microservices_scenario/kibana). Build with `docker build -t kibana:v3 .`
 * **Logstash Pipeline Manager:** available in this repository: [logstash_pipeline_manager](../../docker_images/microservices_scenario/logstash_pipeline_manager/v3). Build with `docker build -t logstash-pipeline-manager:v3 .`
 
 ## Steps to be followed
@@ -24,6 +24,11 @@ Before running the pods, check the following:
 * You have built all the Docker images referenced in pods' specification.
 
 > Note: better to deploy everything in a new namespace
+
+```
+kubectl create namespace myns
+kubectl config set-context --current --namespace=myns
+```
 
 Then, execute the following:
 
