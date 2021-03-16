@@ -1,0 +1,10 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://10.244.0.97:8080
+functions:
+  delete-kafka:
+    lang: python3-http
+    handler: ./delete-kafka
+    image: delete-kafka:latest
+
