@@ -19,7 +19,7 @@ def create_logstash_pipeline(topic):
     r = requests.post(url_logstash_pipeline_manager, json=request_body)
 
 def kafka_consumer(value):
-    url_kafka_consumer = "TODO"
+    url_kafka_consumer = "http://10.244.0.97:8080/function/kafka-consumer"
 
     request_body = json.loads(json.dumps({'value': value}))
     r = requests.post(url_kafka_consumer, json=request_body)
@@ -58,9 +58,7 @@ def handle(event, context):
             value = data["value"]
             topic = value["topic"]
             delete_logstash_pipeline(topic)
-            #TODO change for sleep + function?
-            scheduled_thread = threading.Timer(timedelta(seconds=30).total_seconds(), index_cleaner, args = [topic.lower(), value])
-            scheduled_thread.start()
+            index_cleaner(topic.lower(), value)
 
             return {"statusCode": 201, "body": "No Content"}
         except Exception as e:

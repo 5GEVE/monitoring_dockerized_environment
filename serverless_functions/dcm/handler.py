@@ -5,7 +5,7 @@ import json
 
 def check_if_topic_exist(topic):
 
-    url_fetch_kafka_topic = "TODO"
+    url_fetch_kafka_topic = "http://10.244.0.97:8080/function/fetch-kafka"
 
     request_body = json.loads(json.dumps({'topic': topic}))
     r = requests.get(url_fetch_kafka_topic, json=request_body)
@@ -25,25 +25,25 @@ def send_data_to_dcs(data, operation):
     request_body = json.loads(json.dumps(data))
 
     if operation == "subscribe":
-        url_dcs_subscribe = "TODO"
+        url_dcs_subscribe = "http://10.244.0.97:8080/function/dcs"
         r = requests.post(url_dcs_subscribe, json=request_body)
     elif operation == "unsubscribe":
-        url_dcs_unsubscribe = "TODO"
+        url_dcs_unsubscribe = "http://10.244.0.97:8080/function/dcs"
         r = requests.delete(url_dcs_unsubscribe, json=request_body)
 
 def create_kafka_topic(topic):
 
-    url_create_kafka_topic = "TODO"
+    url_create_kafka_topic = "http://10.244.0.97:8080/function/create-kafka"
 
     request_body = json.loads(json.dumps({'topic': topic}))
     r = requests.post(url_create_kafka_topic, json=request_body)
 
 def delete_kafka_topic(topic):
 
-    url_delete_kafka_topic = "TODO"
+    url_delete_kafka_topic = "http://10.244.0.97:8080/function/delete-kafka"
 
     request_body = json.loads(json.dumps({'topic': topic}))
-    r = requests.delete(url_delete_kafka_topic, json=request_body)
+    r = requests.post(url_delete_kafka_topic, json=request_body)
 
 def handle(event, context):
     if event.method == "POST":
