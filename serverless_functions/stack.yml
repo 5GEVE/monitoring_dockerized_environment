@@ -18,3 +18,8 @@ functions:
     handler: ./delete-kafka
     image: delete-kafka:latest
 
+  kafka-consumer:
+    lang: python3-http
+    handler: ./kafka-consumer
+    image: kafka-consumer:latest
+
