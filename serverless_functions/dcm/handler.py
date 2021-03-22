@@ -8,11 +8,11 @@ def check_if_topic_exist(topic):
     url_fetch_kafka_topic = "http://10.244.0.97:8080/function/fetch-kafka"
 
     request_body = json.loads(json.dumps({'topic': topic}))
-    r = requests.get(url_fetch_kafka_topic, json=request_body)
+    r = requests.post(url_fetch_kafka_topic, json=request_body)
 
     topic_exist = False
 
-    if r.status_code == 302:
+    if r.status_code == 200:
         topic_exist = True
     elif r.status_code == 404:
         topic_exist = False
