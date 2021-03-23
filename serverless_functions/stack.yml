@@ -3,6 +3,16 @@ provider:
   name: openfaas
   gateway: http://10.244.0.97:8080
 functions:
+  create-kafka:
+    lang: python3-http
+    handler: ./create-kafka
+    image: create-kafka:latest
+
+  fetch-kafka:
+    lang: python3-http
+    handler: ./fetch-kafka
+    image: fetch-kafka:latest
+
   delete-kafka:
     lang: python3-http
     handler: ./delete-kafka
