@@ -2,17 +2,17 @@
 
 This README file contains all the steps to be followed to deploy this scenario, based on Kubernetes, in which it is presented the Monitoring platform based on microservices, which is the previous step before achieving the integration of serverless functions.
 
-![Architecture](img/monitoring_architecture_7.png)
+![Architecture](img/monitoring_architecture_8.png)
 
 ## Build Docker images
 
 The following Docker images have been used for this deployment. Please verify that these images have been built beforehand.
 
-* **ZooKeeper:** available in this repository: [zookeeper](../../docker_images/microservices_scenario/zookeeper). Build with `docker build -t zookeeper .`
-* **Kafka:** available in this repository: [kafka:v3](../../docker_images/microservices_scenario/kafka/v3). Build with `docker build -t kafka:v3 .`
-* **Elasticsearch:** available in this repository: [elasticsearch](../../docker_images/microservices_scenario/elasticsearch/v3). Build with `docker build -t elasticsearch:v3 .`
-* **Kibana:** available in this repository: [kibana](../../docker_images/microservices_scenario/kibana). Build with `docker build -t kibana:v3 .`
-* **Logstash Pipeline Manager:** available in this repository: [logstash_pipeline_manager](../../docker_images/microservices_scenario/logstash_pipeline_manager/v3). Build with `docker build -t logstash-pipeline-manager:v3 .`
+* **ZooKeeper:** available in this repository: [zookeeper](../../docker_images/microservices_scenario/zookeeper).
+* **Kafka:** available in this repository: [kafka:v3](../../docker_images/microservices_scenario/kafka/v3).
+* **Elasticsearch:** available in this repository: [elasticsearch](../../docker_images/microservices_scenario/elasticsearch/v3).
+* **Kibana:** available in this repository: [kibana](../../docker_images/microservices_scenario/kibana).
+* **Logstash Pipeline Manager:** available in this repository: [logstash_pipeline_manager](../../docker_images/microservices_scenario/logstash_pipeline_manager/v3).
 
 ## Steps to be followed
 
@@ -25,9 +25,9 @@ Before running the pods, check the following:
 
 > Note: better to deploy everything in a new namespace
 
-```
-kubectl create namespace myns
-kubectl config set-context --current --namespace=myns
+```sh
+$ kubectl create namespace deployment8
+$ kubectl config set-context --current --namespace=deployment8
 ```
 
 Then, execute the following:
@@ -123,7 +123,7 @@ $ kubectl exec kafka_consumer -- /bin/bash entrypoint.sh <kibana_pod_ip>:8080 <k
 Send a new application metric topic to be created in the platform. Use the IP address of the node that contains the DCM pod.
 
 ```sh
-$ curl --location --request POST 'http://<node_containing_dcm_pod_ip_address>:8090/dcm/subscribe' \
+$ curl --location --request POST 'http://10.244.0.97:8080/function/dcs.openfaas-fn' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "records": [
@@ -144,6 +144,14 @@ $ curl --location --request POST 'http://<node_containing_dcm_pod_ip_address>:80
         }
     ]
 }'
+
+
+curl --location --request POST 'http://10.244.0.97:8080/function/create-kafka' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "topic": "helloda"
+}'
+
 ```
 
 If you list the topics currently created, you will see that uc.4.france_nice.application_metric.service_delay has been created.

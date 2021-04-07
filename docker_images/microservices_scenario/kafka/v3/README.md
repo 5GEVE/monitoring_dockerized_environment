@@ -18,7 +18,7 @@ Where:
 
 * **container_name:** name for the container to be deployed.
 
-## Configure the Container
+## Configure the container
 
 Edit the Dockerfile and rebuild the image.
 

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: kibana-container
-          image: kibana:v3
+          image: kibana
           imagePullPolicy: Never
           ports:
             - containerPort: 5601

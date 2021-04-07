@@ -3,7 +3,7 @@
 import json
 import time
 
-from kafka.admin import KafkaConsumer
+from kafka import KafkaConsumer
 from requests import post
 
 
