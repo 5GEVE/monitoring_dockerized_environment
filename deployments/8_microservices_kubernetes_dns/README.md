@@ -140,6 +140,8 @@ $ kafkacat -b kafka:9092 -L
 
 ### 4. Create a new topic with the DCM serverless function
 
+> Before this step, check that Kibana is up and running, as it has to build and run Kibana dashboards.
+
 Send a new application metric topic to be created in the platform. Use the IP address of the OpenFaas gateway that contains the DCM serverless function.
 
 ```sh
@@ -186,7 +188,7 @@ $ /usr/share/logstash/bin/logstash "--path.settings" "/etc/logstash" # terminal 
 The publisher will publish 10 metrics in the uc.4.france_nice.application_metric.service_delay topic, and then it will finish its execution.
 
 ```sh
-$ kubectl exec publisher -- python3 publisher.py kafka:9092 uc.4.france_nice.application_metric.service_delay 10
+$ kubectl exec $publisher_pod -- python3 publisher.py kafka:9092 uc.4.france_nice.application_metric.service_delay 10
 ```
 
 In the meanwhile, check that the DCS-DV receives the messages sent by the publisher (you can go to the Kibana GUI with http://<node_containing_kibana_pod_ip_address>:5601 and take a look to the Kibana index receiving the data, the Kibana dashboard generated, the Elasticsearch index increasing the counter of messages received, etc.).
@@ -198,10 +200,12 @@ You can also run the subscriber in order to confirm that it receives the message
 Finally, you can also use Sangrenel to perform laod tests to the Kafka broker. Remember to finish the execution of Sangrenel with Ctrl+C.
 
 ```sh
-$ kubectl exec sangrenel -- /go/bin/sangrenel -brokers kafka:9092 -interval 1 -message-batch-size 1 -message-size 100 -produce-rate 1000 -topic uc.4.france_nice.application_metric.service_delay -writers-per-worker 1 # Stop with Ctrl+C.
+$ kubectl exec $sangrenel_publisher -- /go/bin/sangrenel -brokers kafka:9092 -interval 1 -message-batch-size 1 -message-size 100 -produce-rate 1000 -topic uc.4.france_nice.application_metric.service_delay -writers-per-worker 1 # Stop with Ctrl+C.
 ```
 
 ### 7. Delete the topic created by the DCM serverless function
+
+Firstly, close Logstash in the terminal opened for that purpose.
 
 Remove the topic created previously by the DCM serverless function by sending this request:
 
@@ -228,8 +232,6 @@ $ curl --location --request DELETE 'http://10.244.0.97:8080/function/dcm' \
     ]
 }'
 ```
-
-After this, you can close Logstash in the terminal opened for that purpose.
 
 If you list the topics currently created, you will see that uc.4.france_nice.application_metric.service_delay has been deleted.
 
