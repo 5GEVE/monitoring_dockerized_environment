@@ -101,11 +101,24 @@ $ echo $logstash_pod
 
 ### 2. Run all serverless functions
 
-Execute the following:
+Execute the following (you have to move to [serverless_functions directory](../../serverless_functions)):
 
 ```sh
-$ faas-cli build -f ../../serverless_functions/stack.yml # just in case
-$ faas-cli deploy -f ../../serverless_functions/stack.yml
+$ faas-cli build -f ./stack.yml # just in case
+$ faas-cli deploy -f ./stack.yml
+$ kubectl get pods -o wide -n openfaas-fn # to check the pods
+```
+
+You should obtain something like this:
+
+```
+NAME                             READY   STATUS    RESTARTS   AGE   IP             NODE            NOMINATED NODE   READINESS GATES
+create-kafka-cd6f6cfb5-4wpn2     1/1     Running   0          17s   10.244.0.209   tardis.tlc.pg   <none>           <none>
+dcm-5b5f654857-qqj45             1/1     Running   0          17s   10.244.0.208   tardis.tlc.pg   <none>           <none>
+dcs-5998f87565-dj24r             1/1     Running   0          17s   10.244.0.212   tardis.tlc.pg   <none>           <none>
+delete-kafka-75d69bbfc-rvfpb     1/1     Running   0          17s   10.244.0.211   tardis.tlc.pg   <none>           <none>
+fetch-kafka-7b946bd8d9-tvr4s     1/1     Running   0          17s   10.244.0.210   tardis.tlc.pg   <none>           <none>
+kafka-consumer-5c957f54b-jqjqz   1/1     Running   0          17s   10.244.0.207   tardis.tlc.pg   <none>           <none>
 ```
 
 ### 3. Check ZooKeeper and Kafka
@@ -239,10 +252,15 @@ $ kubectl delete -f ./pods/kibana_pod.yml
 $ kubectl delete -f ./pods/logstash_pipeline_manager_pod.yml
 ```
 
-These are the commands to remove the serverless functions:
+These are the commands to remove the serverless functions (you have to move to [serverless_functions directory](../../serverless_functions)):
 
 ```sh
-$ faas-cli remove -f ../../serverless_functions/stack.yml
+$ faas-cli remove -f ./stack.yml
+$ kubectl get pods -o wide -n openfaas-fn # to check the pods
 ```
 
 And finally, clean the namespace if required 
+
+```sh
+$ kubectl delete namespace deployment8
+```

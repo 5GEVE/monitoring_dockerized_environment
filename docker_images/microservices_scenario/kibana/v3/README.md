@@ -5,13 +5,13 @@ Docker image containing Kibana, from the ELK Stack. It also contains the dashboa
 ## Build the image
 
 ```sh
-$ docker build -t kibana .
+$ docker build -t kibana:v3 .
 ```
 
 ## Run the image
 
 ```sh
-$ docker run --name <container_name> -p 5601:5601 -p 8080:8080 -t -d kibana
+$ docker run --name <container_name> -p 5601:5601 -p 8080:8080 -t -d kibana:v3
 ```
 
 Where:
