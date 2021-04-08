@@ -21,7 +21,8 @@ def create_logstash_pipeline(topic):
 def kafka_consumer(data):
     url_kafka_consumer = "http://10.244.0.97:8080/function/kafka-consumer"
 
-    r = requests.post(url_kafka_consumer, json=data)
+    request_body = json.loads(json.dumps(data))
+    r = requests.post(url_kafka_consumer, json=request_body)
 
 def delete_logstash_pipeline(topic):
     url_logstash_pipeline_manager = "http://logstash.deployment8:8191/logstash_pipeline_manager"
