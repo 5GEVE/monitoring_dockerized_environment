@@ -19,6 +19,10 @@ functions:
     lang: python3-http
     handler: ./kafka-consumer
     image: kafka-consumer:latest
+    environment:
+      read_timeout: "300s"
+      write_timeout: "300s"
+      exec_timeout: "300s"
   dcm:
     lang: python3-http
     handler: ./dcm

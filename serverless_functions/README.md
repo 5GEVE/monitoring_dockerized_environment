@@ -23,6 +23,16 @@ $ faas-cli build -f ./stack.yml
 $ faas-cli deploy -f ./stack.yml # Use the gateway IP obtained from this command: kubectl get svc -n openfaas gateway-external -o wide
 ```
 
+## How to debug the functions
+
+Execute the following commands:
+
+```sh
+$ faas-cli list # Count how many times each function has been invoked
+$ kubectl logs -n openfaas-fn <pod_name> # See the logs
+```
+
+
 ## How to remove the functions
 
 Execute the following commands:

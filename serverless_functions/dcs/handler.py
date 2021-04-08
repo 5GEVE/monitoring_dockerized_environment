@@ -19,7 +19,7 @@ def create_logstash_pipeline(topic):
     r = requests.post(url_logstash_pipeline_manager, json=request_body)
 
 def kafka_consumer(data):
-    url_kafka_consumer = "http://10.244.0.97:8080/function/kafka-consumer"
+    url_kafka_consumer = "http://10.244.0.97:8080/async-function/kafka-consumer"
 
     request_body = json.loads(json.dumps(data))
     r = requests.post(url_kafka_consumer, json=request_body)
