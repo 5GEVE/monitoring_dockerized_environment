@@ -24,9 +24,7 @@ spec:
           args:
             - "PLAINTEXT://0.0.0.0:9092"
             - "PLAINTEXT://kafka.$(pod_namespace):9092"
-            - "0"
             - "zookeeper"
-            - "kafka"
           env:
             - name: pod_namespace
               valueFrom:
