@@ -8,7 +8,7 @@ There are two main folders in this repository, in which you can find some useful
 
 * **[deployments](deployments):** contains some testing environments to deploy Dockerized architectures related the different Docker images defined in this repository.
 * **[docker_images](docker_images):** provides the Docker images to be used.
-* **[serverless_functions](docker_images):** provides the serverless functions to be used.
+* **[serverless_functions](serverless_functions):** provides the serverless functions to be used.
 
 ## Copyright
 
