@@ -123,7 +123,7 @@ $ kubectl exec kafka_consumer -- /bin/bash entrypoint.sh <kibana_pod_ip>:8080 <k
 Send a new application metric topic to be created in the platform. Use the IP address of the node that contains the DCM pod.
 
 ```sh
-$ curl --location --request POST 'http://10.244.0.97:8080/function/dcs.openfaas-fn' \
+$ curl --location --request POST 'http://10.244.0.97:8080/function/dcm' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "records": [
@@ -174,8 +174,8 @@ $ /usr/share/logstash/bin/logstash "--path.settings" "/etc/logstash" # terminal 
 The publisher will publish 10 metrics in the uc.4.france_nice.application_metric.service_delay topic, and then it will finish its execution.
 
 ```sh
-$ kubectl exec publisher -- /bin/sh -c "echo '<kafka_pod_ip> dcm' | tee -a /etc/hosts > /dev/null"
-$ kubectl exec publisher -- python3 publisher.py <kafka_pod_ip>:9092 uc.4.france_nice.application_metric.service_delay 10
+$ kubectl exec publisher -- /bin/sh -c "echo '10.244.0.149 dcm' | tee -a /etc/hosts > /dev/null"
+$ kubectl exec publisher -- python3 publisher.py kafka:9092 uc.4.france_nice.application_metric.service_delay 10
 ```
 
 In the meanwhile, check that the DCS-DV receives the messages sent by the publisher (you can go to the Kibana GUI with http://<node_containing_kibana_pod_ip_address>:5601 and take a look to the Kibana index receiving the data, the Kibana dashboard generated, the Elasticsearch index increasing the counter of messages received, etc.).

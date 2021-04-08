@@ -49,7 +49,6 @@ def handle(event, context):
     if event.method == "POST":
         try:
             data = json.loads(event.body)
-            print(data)
             records = data["records"]
             for value in records:
                 if value["value"]["topic"].count('.') != 4 or value["value"]["topic"].count(' ') != 0 or value["value"]["topic"].count(',') != 0:

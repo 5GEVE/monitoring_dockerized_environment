@@ -18,11 +18,10 @@ def create_logstash_pipeline(topic):
     request_body = json.loads(json.dumps({'topic': topic}))
     r = requests.post(url_logstash_pipeline_manager, json=request_body)
 
-def kafka_consumer(value):
+def kafka_consumer(data):
     url_kafka_consumer = "http://10.244.0.97:8080/function/kafka-consumer"
 
-    request_body = json.loads(json.dumps({'value': value}))
-    r = requests.post(url_kafka_consumer, json=request_body)
+    r = requests.post(url_kafka_consumer, json=data)
 
 def delete_logstash_pipeline(topic):
     url_logstash_pipeline_manager = "http://logstash.deployment8:8191/logstash_pipeline_manager"
@@ -46,7 +45,7 @@ def handle(event, context):
             topic = value["topic"]
             create_elasticsearch_index(topic.lower())
             create_logstash_pipeline(topic)
-            kafka_consumer(value)
+            kafka_consumer(data)
 
             return {"statusCode": 201, "body": "No Content"}
         except Exception as e:
