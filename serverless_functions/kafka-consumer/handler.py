@@ -3,7 +3,7 @@
 import json
 import time
 
-from kafka.admin import KafkaConsumer
+from kafka import KafkaConsumer
 from requests import post
 
 
@@ -11,8 +11,8 @@ def handle(event, context):
     if event.method == "POST":
         try:
             data = json.loads(event.body)
-            topic = data["topic"]
             value = data["value"]
+            topic = value["topic"]
             consumer = KafkaConsumer(
                 topic,
                 bootstrap_servers=["kafka.deployment8:9092"],

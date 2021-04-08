@@ -14,12 +14,12 @@ The following Docker images have been used for this deployment. Please verify th
 * **DCM:** available in this repository: [dcm](../../docker_images/microservices_scenario/dcm).
 * **DCS:** available in this repository: [dcs](../../docker_images/microservices_scenario/dcs).
 * **Delete Kafka Topic:** available in this repository: [delete_kafka_topic](../../docker_images/microservices_scenario/delete_kafka_topic).
-* **Elasticsearch:** available in this repository: [elasticsearch](../../docker_images/microservices_scenario/elasticsearch).
+* **Elasticsearch:** available in this repository: [elasticsearch](../../docker_images/microservices_scenario/elasticsearch/v1).
 * **Fetch Kafka Topic:** available in this repository: [fetch_kafka_topic](../../docker_images/microservices_scenario/fetch_kafka_topic).
-* **Kafka:** available in this repository: [kafka](../../docker_images/microservices_scenario/kafka).
+* **Kafka:** available in this repository: [kafka](../../docker_images/microservices_scenario/kafka/v1).
 * **Kafka Consumer:** available in this repository: [kafka_consumer](../../docker_images/microservices_scenario/kafka_consumer).
 * **Kibana:** available in this repository: [kibana](../../docker_images/microservices_scenario/kibana).
-* **Logstash Pipeline Manager:** available in this repository: [logstash_pipeline_manager](../../docker_images/microservices_scenario/logstash_pipeline_manager).
+* **Logstash Pipeline Manager:** available in this repository: [logstash_pipeline_manager](../../docker_images/microservices_scenario/logstash_pipeline_manager/v1).
 * **Sangrenel publisher:** available in this repository: [sangrenel_publisher](../../docker_images/microservices_scenario/sangrenel_publisher).
 * **ZooKeeper:** available in this repository: [zookeeper](../../docker_images/microservices_scenario/zookeeper).
 

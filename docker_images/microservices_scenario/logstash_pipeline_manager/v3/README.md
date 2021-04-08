@@ -5,13 +5,13 @@ Docker image containing Logstash, from the ELK Stack. It also contains the Logst
 ## Build the image
 
 ```sh
-$ docker build -t logstash_pipeline_manager .
+$ docker build -t logstash_pipeline_manager:v3 .
 ```
 
 ## Run the image
 
 ```sh
-$ docker run --name <container_name> -p 8191:8191 -t -d logstash_pipeline_manager
+$ docker run --name <container_name> -p 8191:8191 -t -d logstash_pipeline_manager:v3
 ```
 
 Where:

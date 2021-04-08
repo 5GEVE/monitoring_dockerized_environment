@@ -5,13 +5,13 @@ Docker image containing Elasticsearch, ready to be deployed with Kubernetes.
 ## Build the image
 
 ```sh
-$ docker build -t elasticsearch .
+$ docker build -t elasticsearch:v3 .
 ```
 
 ## Run the image
 
 ```sh
-$ docker run --name <container_name> -t -d elasticsearch
+$ docker run --name <container_name> -t -d elasticsearch:v3
 ```
 
 Where:

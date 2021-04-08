@@ -5,7 +5,7 @@ Docker image containing Kafka, configured to be used in the 5G EVE Monitoring ar
 ## Build the image
 
 ```sh
-$ docker build -t kafka:v3.
+$ docker build -t kafka:v3 .
 ```
 
 ## Run the image
@@ -18,23 +18,21 @@ Where:
 
 * **container_name:** name for the container to be deployed.
 
-## Configure the Container
+## Configure the container
 
 Edit the Dockerfile and rebuild the image.
 
 Check this line:
 
 ```
-CMD ["/entrypoint.sh", "PLAINTEXT://0.0.0.0:9092", "PLAINTEXT://kafka:9092", "0", "zookeeper", "kafka"]
+CMD ["/entrypoint.sh", "PLAINTEXT://0.0.0.0:9092", "PLAINTEXT://kafka:9092", "zookeeper"]
 ```
 
 The script parameters are (in order):
 
 * **listener_ip_addresses:** IP addresses in which Kafka is listening to (0.0.0.0 by default). A listener must be included for each network in which there can be clients connected to Kafka.
 * **adv_listener_ip_addresses:** IP addresses to be advertised by Kafka for the different Kafka clients connected to the broker. A listener must be included for each network in which there can be clients connected to Kafka.
-* **broker_id:** value of the brokerId (0 by default).
 * **zookeeper_ip_address:** IP address of ZooKeeper.
-* **rack_name:** name of the Kafka broker to be used by consumers that handles the client.rack attribute.
 
 ## Some Kafka commands to have in mind
 
