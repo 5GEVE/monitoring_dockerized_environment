@@ -32,7 +32,6 @@ $ faas-cli list # Count how many times each function has been invoked
 $ kubectl logs -n openfaas-fn <pod_name> # See the logs
 ```
 
-
 ## How to remove the functions
 
 Execute the following commands:

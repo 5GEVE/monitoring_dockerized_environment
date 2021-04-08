@@ -59,4 +59,4 @@ COPY files/update_hosts.sh /
 RUN chmod +x update_hosts.sh
 COPY files/entrypoint.sh /
 RUN chmod +x entrypoint.sh
-CMD ["/entrypoint.sh", "http://elasticsearch:9200", "kafka:9092", "elasticsearch:9200"]
+CMD ["/entrypoint.sh", "\"http://elasticsearch:9200\"", "kafka:9092", "elasticsearch:9200"]
