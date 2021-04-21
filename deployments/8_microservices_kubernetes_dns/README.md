@@ -132,10 +132,10 @@ $ kubectl exec -it $zookeeper_pod -- /opt/kafka/bin/zookeeper-shell.sh zookeeper
 Check that Kafka broker is reachable from a client:
 
 ```sh
-$ kubectl run alpine --image=alpine:latest -i --tty --rm=true
-$ apk update
-$ apk add kafkacat
-$ kafkacat -b kafka:9092 -L
+kubectl run ubuntu --image=ubuntu:latest -i --tty --rm=true
+apt update
+apt install -y kafkacat
+kafkacat -b kafka:9092 -L
 ```
 
 ### 4. Create a new topic with the DCM serverless function
